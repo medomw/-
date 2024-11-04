@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المسجلين في المسابقة السنوية</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>قائمة المشاركين في المسابقة السنوية بقرية الحاج حسن جودة</h1>
+    </header>
+    
+    <section>
+        <table id="participants-table" style="width: 80%; margin: auto; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">الاسم</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">المستوى</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">تحميل PDF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم إضافة الصفوف هنا عبر JavaScript -->
+            </tbody>
+        </table>
+        <button onclick="downloadAllPDFs()" style="margin-top: 20px;">حفظ جميع الاستمارات كـ PDF</button>
+    </section>
+
+    <script>
+        window.jspdf ? {} : window.jspdf = window.jspdf || {}; // تحقق من مكتبة jsPDF
+        const { jsPDF } = window.jspdf;
+
+        function loadParticipants() {
+            const tableBody = document.getElementById("participants-table").getElementsByTagName("tbody")[0];
+            tableBody.innerHTML = "";
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const name = localStorage.key(i);
+                const data = JSON.parse(localStorage.getItem(name));
+                const level = data.level;
+
+                const row = document.createElement("tr");
+
+                const nameCell = document.createElement("td");
+                nameCell.textContent = name;
+
+                const levelCell = document.createElement("td");
+                levelCell.textContent = level;
+
+                const pdfCell = document.createElement("td");
+                const pdfButton = document.createElement("button");
+                pdfButton.textContent = "حفظ كـ PDF";
+                pdfButton.onclick = () => generatePDF(name, level);
+                pdfCell.appendChild(pdfButton);
+
+                row.appendChild(nameCell);
+                row.appendChild(levelCell);
+                row.appendChild(pdfCell);
+                tableBody.appendChild(row);
+            }
+        }
+
+        function generatePDF(name, level) {
+            const doc = new jsPDF();
+
+            doc.text("المسابقة السنوية بقرية الحاج حسن جودة", 10, 10);
+            doc.text(اسم الطالب: ${name}, 10, 20);
+            doc.text(المستوى: ${level}, 10, 30);
+
+            // إضافة الأسئلة الخمسة في الاستمارة
+            for (let i = 1; i <= 5; i++) {
+                doc.text(السؤال ${i}: _________________________, 10, 40 + i * 10);
+                doc.text("الدرجة: _____", 140, 40 + i * 10);
+            }
+
+            doc.text("المجموع الكلي: ____________", 10, 100);
+            doc.text("توقيع الشيخ: _______________", 140, 100);
+
+            doc.save(${name}_استمارة.pdf);
+        }
+
+        function downloadAllPDFs() {
+            const doc = new jsPDF();
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const name = localStorage.key(i);
+                const data = JSON.parse(localStorage.getItem(name));
+                const level = data.level;
+
+                if (i > 0) doc.addPage();
+
+                doc.text("المسابقة السنوية بقرية الحاج حسن جودة", 10, 10);
+                doc.text(اسم الطالب: ${name}, 10, 20);
+                doc.text(المستوى: ${level}, 10, 30);
+
+                // إضافة الأسئلة الخمسة في الاستمارة
+                for (let j = 1; j <= 5; j++) {
+                    doc.text(السؤال ${j}: _________________________, 10, 40 + j * 10);
+                    doc.text("الدرجة: _____", 140, 40 + j * 10);
+                }
+
+                doc.text("المجموع الكلي: ____________", 10, 100);
+                doc.text("توقيع الشيخ: _______________", 140, 100);
+            }
+
+            doc.save("جميع_استمارات_المشاركين.pdf");
+        }
+
+        window.onload = loadParticipants;
+    </script>
+</body>
+</html>

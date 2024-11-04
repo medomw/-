@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التسجيل في المسابقة السنوية بقرية الحاج حسن جودة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>المسابقة السنوية بقرية الحاج حسن جودة</h1>
+        <p>مرحبًا بكم في موقع التسجيل لمسابقة القرآن الكريم</p>
+    </header>
+    <section>
+        <h2>التسجيل في المسابقة</h2>
+        <form id="registration-form">
+            <label>الاسم الكامل:</label>
+            <input type="text" id="studentName" name="name" required style="width: 100%; padding: 10px; font-size: 1.2em;" oninput="hideConfirmationMessage()"><br>
+
+            <label>المستوى:</label>
+            <select id="level" name="level" required style="width: 100%; padding: 10px; font-size: 1.2em;">
+                <option value="الأول">الأول</option>
+                <option value="الثاني">الثاني</option>
+                <option value="الثالث">الثالث</option>
+                <option value="الرابع">الرابع</option>
+                <option value="الخامس">الخامس</option>
+            </select><br>
+
+            <button type="button" onclick="registerStudent()">التالي</button>
+        </form>
+
+        <!-- رسائل التأكيد والخطأ -->
+        <p id="confirmation-message" style="display: none; color: green; font-weight: bold; margin-top: 20px;">
+            تم التسجيل بنجاح! سيتم تحويل الاستمارة للمسؤولين.
+        </p>
+        <p id="error-message" style="display: none; color: red; font-weight: bold; margin-top: 20px;">
+            لقد تم التسجيل من قبل.
+        </p>
+    </section>
+
+    <script>
+        function registerStudent() {
+            const studentName = document.getElementById("studentName").value;
+            const level = document.getElementById("level").value;
+
+            if (studentName && level) {
+                // التحقق إذا كان الاسم مسجل مسبقًا
+                if (localStorage.getItem(studentName)) {
+                    document.getElementById("error-message").style.display = "block";
+                    document.getElementById("confirmation-message").style.display = "none";
+                } else {
+                    // حفظ البيانات في localStorage وعرض رسالة النجاح
+                    localStorage.setItem(studentName, JSON.stringify({ level: level }));
+                    document.getElementById("confirmation-message").style.display = "block";
+                    document.getElementById("error-message").style.display = "none";
+                }
+            }
+        }
+
+        // دالة إخفاء رسالة النجاح عند البدء بكتابة اسم جديد
+        function hideConfirmationMessage() {
+            document.getElementById("confirmation-message").style.display = "none";
+            document.getElementById("error-message").style.display = "none";
+        }
+    </script>
+    <script src="script.js"></script>
+    
+    <!-- العبارة بالأسفل مع أيقونة الفيسبوك -->
+    <footer style="text-align: center; margin-top: 20px;">
+        <p>تم تصميم الموقع بواسطة 
+            <a href="https://www.facebook.com/mohamed.gomma.7146?mibextid=ZbWKwL" target="_blank">
+                <img src="7ebffc8183b22c710610b33958a47e56.jpg" alt="فيسبوك" style="width: 30px; height: 30px; vertical-align: middle;">
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        function registerStudent() {
+            const studentName = document.getElementById("studentName").value;
+            const level = document.getElementById("level").value;
+
+            if (studentName && level) {
+                // تخزين الاسم والمستوى في localStorage
+                localStorage.setItem(studentName, level);
+
+                // عرض رسالة التأكيد
+                document.getElementById("confirmation-message").style.display = "block";
+            }
+        }
+    </script>
+    <button onclick="clearLocalStorage()">مسح جميع البيانات</button>
+
+<script>
+    function clearLocalStorage() {
+        localStorage.clear();
+        alert("تم مسح جميع البيانات بنجاح!");
+    }
+</script>
+</body>
+</html>

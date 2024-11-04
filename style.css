@@ -1,0 +1,101 @@
+/* خلفية دينية لصفحة التسجيل */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg'); /* ضع هنا رابط الخلفية الدينية */
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* تصميم العنوان */
+header h1 {
+    color: #005cbf;
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+section h2 {
+    color: #005cbf;
+}
+
+/* تصميم النموذج */
+form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+form label {
+    font-size: 1.2em;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* تصميم الأزرار */
+button {
+    background-color: #005cbf;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #003d80;
+}
+
+/* رسالة التأكيد */
+#confirmation-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* استمارة الطباعة */
+#printable-form {
+    background-color: white;
+    color: black;
+    font-size: 1.2em;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* تصميم الأسئلة في استمارة الطباعة */
+.question p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* الزخارف في أسفل الصفحة */
+footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+footer a {
+    color: #005cbf;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
